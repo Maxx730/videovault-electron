@@ -1,0 +1,125 @@
+html,body {
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.container {
+    max-width: none;
+    display: flex;
+    flex-grow: inherit;
+    flex-direction: column;
+}
+
+.container .row {
+    display: inherit;
+    flex-grow: inherit;
+}
+
+.full-width-search {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.container .row .col-4 {
+    border-right: solid 1px #DADADA;
+    background-color: #F0F0F0;
+    padding-top: 20px;
+}
+
+.container .row .col-4 .searchResults {
+    display: flex;
+    justify-items: center;
+    height: 100%;
+}
+
+.container .row .col-8 {
+    padding: 0px;
+    overflow-y: auto;
+}
+
+.container .row .col-8 .video-collection {
+    padding: 20px;
+    width: 100%;
+    border-bottom: solid 1px #000000;
+    background-color: #111111;
+}
+
+.container .row .col-8 .video-collection i {
+    color: #FFF;
+    padding: 7px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.container .row .col-8 .video-collection .collection-header {
+    line-height: 1;
+}
+
+.container .row .col-8 .video-collection h1 {
+    color: #FFF;
+    padding: 0px;
+    margin: 0px;
+    display: inline;
+    font-size: 18px;
+    padding-left: 12px;
+}
+
+.container .row .col-8 .video-content {
+    padding: 15px;
+    padding-bottom: 500px;
+}
+
+.container .row .col-8 .content-tabs {
+    background-color: #F0F0F0;
+    display: flex;
+    border-bottom: 1px solid #DADADA;
+}
+
+.container .row .col-8 .content-tabs ul {
+    list-style: none;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+}
+
+.container .row .col-8 .content-tabs ul li {
+    position: relative;
+    padding: 6px 10px;
+    padding-right: 40px;
+    border-right: 1px solid #DADADA;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    white-space: nowrap;
+}
+
+.container .row .col-8 .content-tabs ul li[active] {
+    background-color: #FFF;
+    border-bottom: solid 1px #FFF;
+    margin-bottom: -1px
+}
+
+.container .row .col-8 .content-tabs ul li:hover {
+    background-color: #FFF;
+}
+
+.container .row .col-8 .content-tabs ul li i {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    font-size: 18px;
+}
+
+#searchResultList ul {
+    width: 100%;
+    overflow-y: scroll;
+    padding-bottom: 25%;
+}
+
+#searchResultList ul li {
+    width: 100%;
+    cursor: pointer;
+}
