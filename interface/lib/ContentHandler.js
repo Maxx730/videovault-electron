@@ -1,22 +1,29 @@
 //Object that will be used to change the content view on the right side of the UI.
 function ContentHandler() {
-    console.log("INITIALIZED CONTENT HANDLER!");
-
-    this.contentTabs = new Array();
-    this.tabList = document.getElementById("content-tab-list");
-
-    this.contentTabs.push(new Tab("Welcome",4))
-    this.contentTabs.push(new Tab("Rythem of the Night",5))
-    this.contentTabs.push(new Tab("What is Love?",6))
-
-    this.renderTabs();
+    this.contentTabs = new Array()
+    this.tabList = document.getElementById("content-tab-list")
+    this.tabContainer = document.getElementById("tab-container")
 }
 
-ContentHandler.prototype.renderTabs = function(ytId){
-    console.log("RENDERING TABS...")
-    this.tabList.innerHTML = "";
+ContentHandler.prototype.renderTabs = function(){
+    this.tabList.innerHTML = ''
+    var tabs = document.createElement('UL')
 
     for( var i = 0;i < this.contentTabs.length;i++ ) {
-        this.tabList.innerHTML += this.contentTabs[i].markup;
+        var item = document.createElement('LI')
+        item.appendChild(document.createTextNode(this.contentTabs[i].title))
+        tabs.appendChild(item)
     }
+
+    this.tabList.appendChild(tabs)
+}
+
+ContentHandler.prototype.addTab = function(payload){
+    var load = JSON.parse(payload)
+    this.contentTabs.push(new Tab(load.snippet.title,load.id.videoId))
+    this.renderTabs()
+}
+
+ContentHandler.prototype.removeTab = function(payload) {
+    console.log(payload)
 }

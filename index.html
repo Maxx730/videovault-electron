@@ -4,76 +4,120 @@
     <link rel = "stylesheet" href = "./interface/stylesheets/bootstrap.min.css" type = "text/css"/>
     <link rel = "stylesheet" href = "./interface/stylesheets/interface.css" type = "text/css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-
     <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
     <script type = "text/javascript" src = "./interface/lib/Tab.js"></script>
     <script type = "text/javascript" src = "./interface/lib/ContentHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/PayloadHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/ResultHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/InterfaceHandler.js"></script>
+    <script type = "text/javascript" src = "./interface/lib/FileHandler.js"></script>
     <meta charset="UTF-8">
   </head>
   <body>
     <script type = "text/javascript">
       window.onload = function(){
-        console.log("DOCUMENT HAS LOADED.")
 
-        window.resultHandler = new ResultHandler()
         window.contentHandler = new ContentHandler()
         window.payloadHandler = new PayloadHandler()
         window.interfaceHandler = new InterfaceHandler()
+        window.fileHandler = new FileHandler(document.getElementById("exportData"))
+
       }
     </script>
     <div class="container">
+      <!-- Modal -->
+      <div class = "modal-shade hide"></div>
+      <div class="modal fade show" id="SettingsModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Settings</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="row">
         <div class="col-4">
-          <!-- Here is where we want to have the interface for searching YouTube for videos. -->
-          <form>
-            <div class="form-group">
-              <input type="text" class="form-control" id="youtubeSearchTerm" aria-describedby="searchHelp" placeholder="Search">
-              <small id="searchHelp" class="form-text text-muted">Enter search term to find videos.</small>
-              <button type="button" id="youtubeSearchButton" class="btn btn-primary full-width-search">Search</button>
-            </div>
-          </form>
-          <!-- Below is going to be the results from the search term, this should be updated as the user is typing. -->
+          <div class = "searchTop">
+            <i class="material-icons">
+              search
+            </i>
+            <!-- Here is where we want to have the interface for searching YouTube for videos. -->
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="youtubeSearchTerm" aria-describedby="searchHelp" placeholder="Search">
+                <small id="searchHelp" class="form-text text-muted">Enter search term to find videos.</small>
+              </div>
+            </form>
+            <!-- Below is going to be the results from the search term, this should be updated as the user is typing. -->
+          </div>
+          <div class = "searchPaddingBottom">
+            <button type="button" id="youtubeSearchButton" class="btn btn-primary full-width-search">Search</button>
+          </div>
           <div id = "searchResultList" class = "searchResults">
-            <div class="spinner-border text-primary" role="status">
-              <span class="sr-only">Loading...</span>
+            <div class="text-center">
+              <!-- <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+              </div> -->
             </div>
           </div>
         </div>
         <div class="col-8" id = "scrollable-video-content">
-          <div class = "video-collection">
+          <div id = "topNavigationMenu" class = "video-collection">
             <div class = "collection-header">
               <!-- Navigation icons for different scenes within the application. -->
-              <i class="material-icons">
-                home
-              </i>
-              <i class="material-icons">
-                description
-              </i>
-              <i class="material-icons">
-                settings
-              </i>
-              <i class="material-icons">
-                person
-              </i>
+
+              <div class = "icons-left">
+                <i class="material-icons">
+                  home
+                </i>
+              </div>
+              <div class = "icons-right">
+                <i class="material-icons" id = "exportData">
+                  description
+                </i>
+                <i class="material-icons" id="settingsToggle">
+                  settings
+                </i>
+                <i class="material-icons">
+                  person
+                </i>
+              </div>
             </div>
           </div>
           <!-- Navigation tabs for each different open video/song. -->
-          <div class = "content-tabs">
+          <div class = "content-tabs" id = "tab-container">
             <ul id = "content-tab-list">
 
             </ul>
           </div>
           <div class = "video-content">
-            <div class="jumbotron">
-              <h1 class="display-4">Welcome!</h1>
-              <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-              <hr class="my-4">
-              <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-              <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-              <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/2EERneKjtoM" frameborder="0"></iframe>
+            <iframe id="ytplayer" type="text/html" src="https://www.youtube.com/embed/2EERneKjtoM?controls=0&autoplay=1&modestbranding=1" frameborder="0"></iframe>
+            <div id = "playerControls">
+              <div id = "centerControls">
+                  <i class="material-icons">
+                    fast_rewind
+                  </i>
+                  <i class="material-icons">
+                    play_arrow
+                  </i>
+                  <i class="material-icons">
+                    pause
+                  </i>
+                  <i class="material-icons">
+                    fast_forward
+                  </i>
+              </div>
             </div>
           </div>
         </div>
