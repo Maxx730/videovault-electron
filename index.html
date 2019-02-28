@@ -5,22 +5,25 @@
     <link rel = "stylesheet" href = "./interface/stylesheets/interface.css" type = "text/css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
+    <script type = "text/javascript" src = "https://www.youtube.com/player_api"></script>
+
     <script type = "text/javascript" src = "./interface/lib/Tab.js"></script>
     <script type = "text/javascript" src = "./interface/lib/ContentHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/PayloadHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/ResultHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/InterfaceHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/FileHandler.js"></script>
+    <script type = "text/javascript" src = "./interface/lib/PlayerControl.js"></script>
     <meta charset="UTF-8">
   </head>
   <body>
     <script type = "text/javascript">
       window.onload = function(){
 
-        window.contentHandler = new ContentHandler()
         window.payloadHandler = new PayloadHandler()
         window.interfaceHandler = new InterfaceHandler()
         window.fileHandler = new FileHandler(document.getElementById("exportData"))
+        window.playerControl = new PlayerControl()
 
       }
     </script>
@@ -61,6 +64,12 @@
             </form>
             <!-- Below is going to be the results from the search term, this should be updated as the user is typing. -->
           </div>
+          <div class = "toggleTabs">
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary">Discover</button>
+                <button type="button" class="btn btn-light">Saved</button>
+              </div>
+          </div>
           <div class = "searchPaddingBottom">
             <button type="button" id="youtubeSearchButton" class="btn btn-primary full-width-search">Search</button>
           </div>
@@ -95,27 +104,20 @@
               </div>
             </div>
           </div>
-          <!-- Navigation tabs for each different open video/song. -->
-          <div class = "content-tabs" id = "tab-container">
-            <ul id = "content-tab-list">
-
-            </ul>
-          </div>
           <div class = "video-content">
-            <iframe id="ytplayer" type="text/html" src="https://www.youtube.com/embed/2EERneKjtoM?controls=0&autoplay=1&modestbranding=1" frameborder="0"></iframe>
+            <div class = "playerScreen">
+
+            </div>
+            <div id = "ytplayer">
+
+            </div>
             <div id = "playerControls">
+              <div class = "playerTimebar">
+                <input type="range" class="form-control-range" id="youtubeRange" value="0" step = "0.01">
+              </div>
               <div id = "centerControls">
-                  <i class="material-icons">
-                    fast_rewind
-                  </i>
-                  <i class="material-icons">
+                  <i class="material-icons" id="playPauseToggle">
                     play_arrow
-                  </i>
-                  <i class="material-icons">
-                    pause
-                  </i>
-                  <i class="material-icons">
-                    fast_forward
                   </i>
               </div>
             </div>

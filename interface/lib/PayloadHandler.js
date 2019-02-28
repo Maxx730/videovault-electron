@@ -58,38 +58,45 @@ PayloadHandler.prototype.searchRequest = function(query,callback) {
 }
 
 PayloadHandler.prototype.renderSearchResults = function(results) {
-    var list = document.createElement('UL')
+    console.log(results)
+    var list = document.createElement('DIV')
     list.classList.add('list-group')
 
     for(var i = 0;i < results.length;i++) {
-        var item = document.createElement('LI')
-        item.classList.add('list-group-item')
-        item.setAttribute('data',JSON.stringify(results[i]))
-        item.addEventListener('click',function() {
-            window.contentHandler.addTab(this.getAttribute('data'))
-        })
 
-        var text = document.createElement('SPAN')
-        text.classList.add('result-text')
-        text.appendChild(document.createTextNode(results[i].snippet.title))
-        item.appendChild(text)
+        var link = document.createElement('A')
+        link.href = '#'
+        link.classList.add('list-group-item')
+        link.classList.add('list-group-item-action')
 
-        var icons = document.createElement('SPAN')
-        icons.classList.add('resultIcons')
+        var content = document.createElement('DIV')
+        content.className = 'd-flex w-100 justify-content-between'
 
-        //Create icons here.
-        var playIcon = document.createElement('I')
-        playIcon.classList.add('material-icons')
-        playIcon.appendChild(document.createTextNode('play_circle_filled'))
-        icons.appendChild(playIcon)
+        var title = document.createElement('H5')
+        title.classList.add('mb-1')
+        title.innerText = results[i].snippet.title
 
-        var favorite = document.createElement('I')
-        favorite.classList.add('material-icons')
-        favorite.appendChild(document.createTextNode('favorite'))
-        icons.appendChild(favorite)
+        var small = document.createElement('SMALL')
+        small.innerText = results[i].snippet.channelTitle
 
-        item.appendChild(icons)
-        list.appendChild(item)
+        var desc = document.createElement('P')
+        desc.classList.add('mb-1')
+        desc.innerText = results[i].snippet.description
+
+        var date = document.createElement('SMALL')
+        date.innerText = 'Published: ' + (new Date(results[i].snippet.publishedAt).getMonth() + 1) + '/' + new Date(results[i].snippet.publishedAt).getDate() + '/' +new Date(results[i].snippet.publishedAt).getFullYear()
+        
+        var thumb = document.createElement('IMG')
+        thumb.src = results[i].snippet.thumbnails.high.url
+        thumb.classList = 'resultThumb'
+
+        content.appendChild(title)
+        content.appendChild(small)
+        link.appendChild(content)
+        link.appendChild(thumb)
+        link.appendChild(desc)
+        link.appendChild(date)
+        list.appendChild(link)
     }
 
     this.resultList.removeChild(this.loadingAnimation)
