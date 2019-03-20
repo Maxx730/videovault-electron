@@ -4,6 +4,7 @@
     <link rel = "stylesheet" href = "./interface/stylesheets/bootstrap.min.css" type = "text/css"/>
     <link rel = "stylesheet" href = "./interface/stylesheets/interface.css" type = "text/css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
     <script type = "text/javascript" src = "https://www.youtube.com/player_api"></script>
 
@@ -50,7 +51,81 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class = "col-3 options-column">
+            <div class = "user-profile-section">
+                <div class = "profile-image">
+                    <center>
+                        <i class="material-icons">
+                            person
+                        </i>
+                    </center>
+                </div>
+                <div class = "user-information">
+                    <span>
+                        Username
+                    </span>
+                </div>
+            </div>
+            <h1 class = "options-head">
+                Start Watching
+            </h1>
+            <ul class = "">
+              <li class="selected">
+                  <i class="material-icons">
+                      movie_creation
+                  </i>
+                  <span>
+                      Movies
+                  </span>
+              </li>
+              <li>
+                  <i class="material-icons">
+                  tv
+                  </i>
+                  <span>
+                      TV Shows
+                  </span>
+              </li>
+              <li>
+                  <i class="material-icons">
+                  music_note
+                  </i>
+                  <span>
+                      Music
+                  </span>
+              </li>
+              <li>
+                  <i class="material-icons">
+                  subscriptions
+                  </i>
+                  <span>
+                      YouTube
+                  </span>
+              </li>
+            </ul>
+            <h1 class = "options-head">
+                Preferences
+            </h1>
+            <ul class = "">
+              <li>
+                  <i class="material-icons">
+                      settings
+                  </i>
+                  <span>
+                      Settings
+                  </span>
+              </li>
+              <li>
+                  <i class="material-icons">
+                      account_box
+                  </i>
+                  <span>
+                      Profile
+                  </span>
+              </li>
+            </ul>
+        </div>
+        <div class="col-4 hide">
           <div class = "searchTop">
             <i class="material-icons">
               search
@@ -81,35 +156,85 @@
             </div>
           </div>
         </div>
-        <div class="col-8" id = "scrollable-video-content">
-          <div id = "topNavigationMenu" class = "video-collection">
-            <div class = "collection-header">
-              <!-- Navigation icons for different scenes within the application. -->
-
-              <div class = "icons-left">
-                <i class="material-icons">
-                  home
-                </i>
-              </div>
-              <div class = "icons-right">
-                <i class="material-icons" id = "exportData">
-                  description
-                </i>
-                <i class="material-icons" id="settingsToggle">
-                  settings
-                </i>
-                <i class="material-icons">
-                  person
-                </i>
-              </div>
-            </div>
-          </div>
+        <div class="col-9" id = "scrollable-video-content">
           <div class = "video-content">
             <div class = "playerScreen">
-
-            </div>
-            <div id = "ytplayer">
-
+                <div id="Movies" class="screen-content focused">
+                    <div class="screen-header">
+                        <h1>
+                            <i class="material-icons">
+                                movie_creation
+                            </i>
+                            <span>
+                                Movies
+                            </span>
+                        </h1>
+                        <h2>
+                            What would you like to watch?
+                        </h2>
+                    </div>
+                </div>
+                <div id="TV Shows" class="screen-content">
+                    <div class="screen-header">
+                        <h1>
+                            <i class="material-icons">
+                                tv
+                            </i>
+                            <span>
+                                TV Shows
+                            </span>
+                        </h1>
+                        <h2>
+                            Start binging!
+                        </h2>
+                    </div>
+                </div>
+                <div id="Music" class="screen-content">
+                    <div class="screen-header">
+                        <h1>
+                            <i class="material-icons">
+                                music_note
+                            </i>
+                            <span>
+                                Music
+                            </span>
+                        </h1>
+                        <h2>
+                            Jam out!
+                        </h2>
+                    </div>
+                </div>
+                <div id="YouTube" class="screen-content">
+                    <div class="screen-header">
+                        <h1>
+                            <i class="material-icons">
+                                subscriptions
+                            </i>
+                            <span>
+                                YouTube
+                            </span>
+                        </h1>
+                        <h2>
+                            Explore the net!
+                        </h2>
+                    </div>
+                </div>
+                <div id="Settings" class="screen-content">
+                    <div class="screen-header">
+                        <h1>
+                            <i class="material-icons">
+                                settings
+                            </i>
+                            <span>
+                                Settings
+                            </span>
+                        </h1>
+                        <h2>
+                            Set up the player!
+                        </h2>
+                    </div>
+                </div>
+                <div id="Profile" class="screen-content"></div>
             </div>
             <div id = "playerControls">
               <div class = "playerTimebar">

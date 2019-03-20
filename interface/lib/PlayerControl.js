@@ -4,10 +4,10 @@ var context;
 
 function PlayerControl() {
     player = new YT.Player('ytplayer', {
-        videoId: 'uF_haaJOCzQ',
+        videoId: 'GBUCmMxmup0',
         playerVars: {
             controls: 0,
-            start: 36,
+            start: 0,
             autoplay: 1
         },
         events: {
