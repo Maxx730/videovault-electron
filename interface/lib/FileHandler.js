@@ -8,7 +8,8 @@ const allowedTypes = {
 }
 
 window.scannedData = {
-    images: []
+    images: [],
+    videos: []
 }
 
 const saveLocation = electron.remote.app.getAppPath() + '/data/'
@@ -25,7 +26,8 @@ FileHandler = function(exportButton) {
             if ( paths.length > 0) {
                 for( let i = 0;i < paths.length;i++ ) {
                     window.scannedData = {
-                        images: []
+                        images: [],
+                        videos: []
                     }
                     pendingRecursive = 1;
                     document.getElementById("RootPathInput").value = paths[i];
