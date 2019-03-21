@@ -451,6 +451,11 @@ input[type='range']::-webkit-slider-thumb {
 
 .playerScreen .screen-content.focused {
     display: flex;
+    flex-direction: column;
+}
+
+.playerScreen .screen-content .screen-contents {
+    padding-top: 24px;
 }
 
 .screen-content .screen-header h1 ,.screen-content .screen-header h2 {
