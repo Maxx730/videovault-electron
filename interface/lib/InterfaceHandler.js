@@ -17,10 +17,28 @@ function InterfaceHandler() {
 
             document.getElementById(this.children[1].innerText).classList.add('focused')
             this.classList.add('selected')
+
+            let event = new CustomEvent('screen-changed',{
+                detail :{
+                    screen: this.children[1].innerText
+                }
+            })
+
+            document.getElementById(this.children[1].innerText).dispatchEvent(event)
         })
     }
 
-    this.settingsIcon.addEventListener('click',function(){
+    for ( var i = 0; i < this.screens.length; i++ ) {
+        this.screens[i].addEventListener('screen-changed',( event ) => {
+            switch ( event.detail.screen ) {
+                case "Images":
+                    console.log("LOADING IMAGES FROM DATA OBJECT NOW!")
+                break;
+            }
+        })
+    }
+
+    /*this.settingsIcon.addEventListener('click',function(){
         document.getElementsByClassName('modal-shade')[0].classList.remove('hide')
         document.getElementById('SettingsModalLong').style.display = 'block'
         
@@ -32,7 +50,7 @@ function InterfaceHandler() {
                 document.getElementById('SettingsModalLong').style.display = 'none'
             })
         }
-    })
+    })*/
 
     this.content.addEventListener("scroll",function(event){
         if(event.target.scrollTop > 80){
