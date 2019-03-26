@@ -15,248 +15,267 @@
     <script type = "text/javascript" src = "./interface/lib/InterfaceHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/FileHandler.js"></script>
     <script type = "text/javascript" src = "./interface/lib/PlayerControl.js"></script>
+    <script type = "text/javascript" src = "./interface/lib/VideoFileHandler.js"></script>
     <meta charset="UTF-8">
   </head>
   <body>
     <script type = "text/javascript">
       window.onload = function(){
 
-        window.payloadHandler = new PayloadHandler()
+        window.store = {
+            loading: false
+        }
+
         window.interfaceHandler = new InterfaceHandler()
         window.fileHandler = new FileHandler(document.getElementById("exportData"))
-        window.playerControl = new PlayerControl()
+        window.videoFileHandler = new VideoFileHandler()
 
       }
     </script>
     <div class="container">
-      <!-- Modal -->
-      <div class = "modal-shade hide"></div>
-      <div class="modal fade show" id="SettingsModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Settings</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+      <div class="row">
+        <div class = "application-content">
+            <div class = "col-3 options-column">
+                <div class = "user-profile-section">
+                    <div class = "profile-image">
+                        <center>
+                            <i class="material-icons">
+                                person
+                            </i>
+                        </center>
+                    </div>
+                    <div class = "user-information">
+                        <span>
+                            Username
+                        </span>
+                    </div>
+                </div>
+                <h1 class = "options-head">
+                    Start Watching
+                </h1>
+                <ul class = "">
+                <li class="selected">
+                    <i class="material-icons">
+                        movie_creation
+                    </i>
+                    <span>
+                        Movies
+                    </span>
+                </li>
+                <li>
+                    <i class="material-icons">
+                    tv
+                    </i>
+                    <span>
+                        TV Shows
+                    </span>
+                </li>
+                <li>
+                    <i class="material-icons">
+                    insert_photo
+                    </i>
+                    <span>
+                        Images
+                    </span>
+                </li>
+                <li>
+                    <i class="material-icons">
+                    subscriptions
+                    </i>
+                    <span>
+                        YouTube
+                    </span>
+                </li>
+                </ul>
+                <h1 class = "options-head">
+                    Preferences
+                </h1>
+                <ul class = "">
+                <li>
+                    <i class="material-icons">
+                        settings
+                    </i>
+                    <span>
+                        Settings
+                    </span>
+                </li>
+                <li>
+                    <i class="material-icons">
+                        account_box
+                    </i>
+                    <span>
+                        Profile
+                    </span>
+                </li>
+                </ul>
             </div>
-            <div class="modal-body">
-              ...
+            <div class="col-4 hide">
+            <div class = "searchTop">
+                <i class="material-icons">
+                search
+                </i>
+                <!-- Here is where we want to have the interface for searching YouTube for videos. -->
+                <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="youtubeSearchTerm" aria-describedby="searchHelp" placeholder="Search">
+                    <small id="searchHelp" class="form-text text-muted">Enter search term to find videos.</small>
+                </div>
+                </form>
+                <!-- Below is going to be the results from the search term, this should be updated as the user is typing. -->
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save Changes</button>
+            <div class = "toggleTabs">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary">Discover</button>
+                    <button type="button" class="btn btn-light">Saved</button>
+                </div>
             </div>
-          </div>
+            <div class = "searchPaddingBottom">
+                <button type="button" id="youtubeSearchButton" class="btn btn-primary full-width-search">Search</button>
+            </div>
+            <div id = "searchResultList" class = "searchResults">
+                <div class="text-center">
+                <!-- <div class="spinner-grow spinner-grow-sm" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div> -->
+                </div>
+            </div>
+            </div>
+            <div class="col-9" id = "scrollable-video-content">
+            <div class = "video-content">
+                <div class = "playerScreen">
+                    <div id="Movies" class="screen-content focused">
+                        <div class = "">
+                            <ul id = "VideoList">
+
+                            </ul>                        
+                        </div>
+                    </div>
+                    <div id="TV Shows" class="screen-content">
+                        <div class="screen-header">
+                            <h1>
+                                <i class="material-icons">
+                                    tv
+                                </i>
+                                <span>
+                                    TV Shows
+                                </span>
+                            </h1>
+                            <h2>
+                                Start binging!
+                            </h2>
+                        </div>
+                    </div>
+                    <div id="Images" class="screen-content">
+                        <div class="screen-header">
+                            <h1>
+                                <i class="material-icons">
+                                    insert_photo
+                                </i>
+                                <span>
+                                    Images
+                                </span>
+                            </h1>
+                            <h2>
+                                Take a peek!
+                            </h2>
+                        </div>
+                        <div class = "screen-data">
+                            <ul id="image-list">
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="YouTube" class="screen-content">
+                        <div class="screen-header">
+                            <h1>
+                                <i class="material-icons">
+                                    subscriptions
+                                </i>
+                                <span>
+                                    YouTube
+                                </span>
+                            </h1>
+                            <h2>
+                                Explore the net!
+                            </h2>
+                        </div>
+                    </div>
+                    <div id="Settings" class="screen-content">
+                        <div class="screen-header">
+                            <h1>
+                                <i class="material-icons">
+                                    settings
+                                </i>
+                                <span>
+                                    Settings
+                                </span>
+                            </h1>
+                            <h2>
+                                Set up the player!
+                            </h2>
+                        </div>
+                        <div class = "screen-contents">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend" id="exportData">
+                            <span class="input-group-text" id="basic-addon1"><i class="material-icons">
+                                folder
+                            </i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Path" id = "RootPathInput" aria-describedby="basic-addon1">
+                        </div>
+                        </div>
+                    </div>
+                    <div id="Profile" class="screen-content"></div>
+                </div>
+            </div>
+            </div>            
+        </div>
+
+        <div class = "application-status-bar">
+            <span class = "status-text">
+                Status
+            </span>
+            <div id="loading-status" class="spinner-border text-primary spinner-border-sm hide" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
       </div>
-      <div class="row">
-        <div class = "col-3 options-column">
-            <div class = "user-profile-section">
-                <div class = "profile-image">
-                    <center>
-                        <i class="material-icons">
-                            person
-                        </i>
-                    </center>
-                </div>
-                <div class = "user-information">
-                    <span>
-                        Username
-                    </span>
-                </div>
-            </div>
-            <h1 class = "options-head">
-                Start Watching
-            </h1>
-            <ul class = "">
-              <li class="selected">
-                  <i class="material-icons">
-                      movie_creation
-                  </i>
-                  <span>
-                      Movies
-                  </span>
-              </li>
-              <li>
-                  <i class="material-icons">
-                  tv
-                  </i>
-                  <span>
-                      TV Shows
-                  </span>
-              </li>
-              <li>
-                  <i class="material-icons">
-                  insert_photo
-                  </i>
-                  <span>
-                      Images
-                  </span>
-              </li>
-              <li>
-                  <i class="material-icons">
-                  subscriptions
-                  </i>
-                  <span>
-                      YouTube
-                  </span>
-              </li>
-            </ul>
-            <h1 class = "options-head">
-                Preferences
-            </h1>
-            <ul class = "">
-              <li>
-                  <i class="material-icons">
-                      settings
-                  </i>
-                  <span>
-                      Settings
-                  </span>
-              </li>
-              <li>
-                  <i class="material-icons">
-                      account_box
-                  </i>
-                  <span>
-                      Profile
-                  </span>
-              </li>
-            </ul>
+      <div class = "video-stage hide">
+        <i class="material-icons" id="CloseStage">
+            clear
+        </i>
+        <div class = "video-player">
+            <video>
+                <source id="VideoSource" src="" type="video/mp4">
+                No Video Playing
+            </video>
         </div>
-        <div class="col-4 hide">
-          <div class = "searchTop">
-            <i class="material-icons">
-              search
-            </i>
-            <!-- Here is where we want to have the interface for searching YouTube for videos. -->
-            <form>
-              <div class="form-group">
-                <input type="text" class="form-control" id="youtubeSearchTerm" aria-describedby="searchHelp" placeholder="Search">
-                <small id="searchHelp" class="form-text text-muted">Enter search term to find videos.</small>
-              </div>
-            </form>
-            <!-- Below is going to be the results from the search term, this should be updated as the user is typing. -->
-          </div>
-          <div class = "toggleTabs">
-              <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary">Discover</button>
-                <button type="button" class="btn btn-light">Saved</button>
-              </div>
-          </div>
-          <div class = "searchPaddingBottom">
-            <button type="button" id="youtubeSearchButton" class="btn btn-primary full-width-search">Search</button>
-          </div>
-          <div id = "searchResultList" class = "searchResults">
-            <div class="text-center">
-              <!-- <div class="spinner-grow spinner-grow-sm" role="status">
-                <span class="sr-only">Loading...</span>
-              </div> -->
+        <div class = "stage-controls">
+            <div class = "ProggressBar">
+                <progress id="VideoProgress" value = "0" max="100"></progress>
             </div>
-          </div>
-        </div>
-        <div class="col-9" id = "scrollable-video-content">
-          <div class = "video-content">
-            <div class = "playerScreen">
-                <div id="Movies" class="screen-content focused">
-                    <div class="screen-header">
-                        <h1>
-                            <i class="material-icons">
-                                movie_creation
-                            </i>
-                            <span>
-                                Movies
-                            </span>
-                        </h1>
-                        <h2>
-                            What would you like to watch?
-                        </h2>
-                    </div>
-                </div>
-                <div id="TV Shows" class="screen-content">
-                    <div class="screen-header">
-                        <h1>
-                            <i class="material-icons">
-                                tv
-                            </i>
-                            <span>
-                                TV Shows
-                            </span>
-                        </h1>
-                        <h2>
-                            Start binging!
-                        </h2>
-                    </div>
-                </div>
-                <div id="Images" class="screen-content">
-                    <div class="screen-header">
-                        <h1>
-                            <i class="material-icons">
-                                insert_photo
-                            </i>
-                            <span>
-                                Images
-                            </span>
-                        </h1>
-                        <h2>
-                            Take a peek!
-                        </h2>
-                    </div>
-                </div>
-                <div id="YouTube" class="screen-content">
-                    <div class="screen-header">
-                        <h1>
-                            <i class="material-icons">
-                                subscriptions
-                            </i>
-                            <span>
-                                YouTube
-                            </span>
-                        </h1>
-                        <h2>
-                            Explore the net!
-                        </h2>
-                    </div>
-                </div>
-                <div id="Settings" class="screen-content">
-                    <div class="screen-header">
-                        <h1>
-                            <i class="material-icons">
-                                settings
-                            </i>
-                            <span>
-                                Settings
-                            </span>
-                        </h1>
-                        <h2>
-                            Set up the player!
-                        </h2>
-                    </div>
-                    <div class = "screen-contents">
-                      <div class="input-group mb-3">
-                        <div class="input-group-prepend" id="exportData">
-                          <span class="input-group-text" id="basic-addon1"><i class="material-icons">
-                              folder
-                          </i></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Path" id = "RootPathInput" aria-describedby="basic-addon1">
-                      </div>
-                    </div>
-                </div>
-                <div id="Profile" class="screen-content"></div>
+            <div class = "AudioControls">
+                <progress value="22" max="100"></progress>
+                <i class="material-icons">
+                speaker
+                </i>
             </div>
-            <div id = "playerControls">
-              <div class = "playerTimebar">
-                <input type="range" class="form-control-range" id="youtubeRange" value="0" step = "0.01">
-              </div>
-              <div id = "centerControls">
-                  <i class="material-icons" id="playPauseToggle">
+            <center>
+                <div class = "controls">
+                    <i class="material-icons">
+                    fast_rewind
+                    </i>
+                    <i class="material-icons" id="PlayControl">
                     play_arrow
-                  </i>
-              </div>
-            </div>
-          </div>
+                    </i>
+                    <i class="material-icons hide" id="PauseControl">
+                    pause
+                    </i>
+                    <i class="material-icons">
+                    fast_forward
+                    </i>                
+                </div>                
+            </center>
         </div>
       </div>
     </div>

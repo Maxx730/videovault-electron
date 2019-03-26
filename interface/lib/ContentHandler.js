@@ -25,5 +25,5 @@ ContentHandler.prototype.addTab = function(payload){
 }
 
 ContentHandler.prototype.removeTab = function(payload) {
-    console.log(payload)
+
 }
